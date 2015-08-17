@@ -39,3 +39,51 @@ describe(List) do
     end
   end
 end
+
+describe(Task) do
+  describe(".all") do
+    it("is empty at first") do
+      expect(Task.all()).to(eq([]))
+    end
+  end
+
+  describe("#save") do
+    it ("adds a task to the array of saved task") do
+      test_list = Task.new({:name => "Buy Milk", :list_id => 1})
+      test_list.save()
+      expect(Task.all()).to(eq([test_list]))
+    end
+  end
+
+  describe(".clear") do
+    it("clears all lists") do
+      test_list = Task.new({:name => "Buy Milk", :list_id => 1})
+      test_list.save()
+      Task.clear()
+      expect(Task.all()).to(eq([]))
+    end
+  end
+
+  describe("#name") do
+    it("tells you its name") do
+      task = Task.new({:name => "Epicodus stuff", :list_id => 1})
+      expect(task.name()).to(eq("Epicodus stuff"))
+    end
+  end
+
+  describe("#id") do
+    it("sets its ID when you save it") do
+      task = Task.new({:name => "Epicodus stuff", :list_id => 1})
+      task.save()
+      expect(task.id()).to(be_an_instance_of(Fixnum))
+    end
+  end
+
+  describe("#list_id") do
+    it("sets its ID when you save it") do
+      task = Task.new({:name => "Epicodus stuff", :list_id => 1})
+      task.save()
+      expect(task.id()).to(be_an_instance_of(Fixnum))
+    end
+  end
+end
