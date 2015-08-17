@@ -22,7 +22,7 @@ class List
   end
 
   define_singleton_method(:clear) do
-    result = DB.exec("DELETE FROM list *;")
+    DB.exec("DELETE FROM list *;")
   end
 
   define_method(:==) do |another_list|
