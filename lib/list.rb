@@ -3,7 +3,6 @@ class List
 
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
-    @id = attributes.fetch(:id)
   end
 
   define_singleton_method(:all) do
@@ -15,5 +14,14 @@ class List
       lists.push(List.new({:name => name, :id => id}))
     end
     lists
+  end
+
+  define_method(:save) do
+    result = DB.exec("INSERT INTO list (name) VALUES ('#{@name}') RETURNING id;")
+    @id = result.first().fetch("id").to_i()
+  end
+
+  define_method(:==) do |another_list|
+    self.name().==(another_list.name())
   end
 end
