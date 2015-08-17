@@ -49,7 +49,7 @@ describe(Task) do
 
   describe("#save") do
     it ("adds a task to the array of saved task") do
-      test_list = Task.new({:name => "Buy Milk", :list_id => 1})
+      test_list = Task.new({:name => "Buy Milk", :list_id => 1, :due_date => "2015-08-20"})
       test_list.save()
       expect(Task.all()).to(eq([test_list]))
     end
@@ -57,7 +57,7 @@ describe(Task) do
 
   describe(".clear") do
     it("clears all lists") do
-      test_list = Task.new({:name => "Buy Milk", :list_id => 1})
+      test_list = Task.new({:name => "Buy Milk", :list_id => 1, :due_date => "2015-08-20"})
       test_list.save()
       Task.clear()
       expect(Task.all()).to(eq([]))
@@ -66,14 +66,14 @@ describe(Task) do
 
   describe("#name") do
     it("tells you its name") do
-      task = Task.new({:name => "Epicodus stuff", :list_id => 1})
+      task = Task.new({:name => "Epicodus stuff", :list_id => 1, :due_date => "2015-08-20"})
       expect(task.name()).to(eq("Epicodus stuff"))
     end
   end
 
   describe("#id") do
     it("sets its ID when you save it") do
-      task = Task.new({:name => "Epicodus stuff", :list_id => 1})
+      task = Task.new({:name => "Epicodus stuff", :list_id => 1, :due_date => "2015-08-20"})
       task.save()
       expect(task.id()).to(be_an_instance_of(Fixnum))
     end
@@ -81,9 +81,19 @@ describe(Task) do
 
   describe("#list_id") do
     it("sets its ID when you save it") do
-      task = Task.new({:name => "Epicodus stuff", :list_id => 1})
+      task = Task.new({:name => "Epicodus stuff", :list_id => 1, :due_date => "2015-08-20"})
       task.save()
       expect(task.id()).to(be_an_instance_of(Fixnum))
+    end
+  end
+
+  describe(".sort") do
+    it("sorts to do tasks by due date") do
+      task = Task.new({:name => "Buy Milk", :list_id => 1, :due_date => '2015-08-20'})
+      task2 = Task.new({:name => "Buy Gas", :list_id => 1, :due_date => '2015-08-19'})
+      task.save()
+      task2.save()
+      expect(Task.all()).to(eq([task2, task]))
     end
   end
 end
