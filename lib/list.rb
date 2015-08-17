@@ -21,6 +21,10 @@ class List
     @id = result.first().fetch("id").to_i()
   end
 
+  define_singleton_method(:clear) do
+    result = DB.exec("DELETE FROM list *;")
+  end
+
   define_method(:==) do |another_list|
     self.name().==(another_list.name())
   end
